@@ -1,128 +1,18 @@
+<html>
 
-
-<script>
-
-    function reloadIFrame(){
-            var g1 = document.getElementById("graf1");
-            g1.src = g1.src;
-            var g2 = document.getElementById("graf2");
-            g2.src = g2.src;
-            var g3 = document.getElementById("graf3");
-            g3.src = g3.src;
-            //var cal = document.getElementById("cal");
-            //cal.src = cal.src;
-    }
-    
-    setInterval("reloadIFrame()", 10000);
-    
-    </script>
-    <script type="text/javascript" src="https://w.24timezones.com/l.js" async></script>
-    <script type="text/javascript" language="javascript" src="https://i-invdn-com.akamaized.net/jquery.js"></script>
-    <script type="text/javascript" language="javascript">
-    //function that switches quotes bar tabs & content
-    function switch_quotes_bar_tab(num) {
-         $('#quotes_bar_layer'+num).siblings().css({'display':'none'});
-         $('#quotes_bar_layer'+num).css({'display':''});
-         $('#quotes_bar_tabs_left').css({backgroundImage : "url(https://wmt-invdn-com.akamaized.net/quotes_bar_tab_"+num+".gif)"});
-         $('#quotes_bar_tabs_right').css({backgroundImage : "url(https://wmt-invdn-com.akamaized.net/quotes_bar_tab_"+num+"-rtl.gif)"});
-    }
-    //preload quotes bar tabs images
-    var quotes_bar_tab = new Image();
-    quotes_bar_tab.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_1.gif';
-    var quotes_bar_tab_rtl = new Image();
-    quotes_bar_tab_rtl.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_1-rtl.gif';
-    var quotes_bar_tab2 = new Image();
-    quotes_bar_tab2.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_2.gif';
-    var quotes_bar_tab2_rtl = new Image();
-    quotes_bar_tab2_rtl.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_2-rtl.gif';
-    var quotes_bar_tab3 = new Image();
-    quotes_bar_tab3.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_3.gif';
-    var quotes_bar_tab3_rtl = new Image();
-    quotes_bar_tab3_rtl.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_3-rtl.gif'; 
-    
-    function refresher(pairs,css) {
-        ajax_delay = 5000;
-        $.ajax({
-            url:'/quotes_bar/quotes_bar_ajax.php', 
-            type: "GET",
-            data: "pairs="+pairs+"&css="+css+"&force_lang=12",
-            dataType: ($.browser.msie) ? "text" : "text",
-            success:
-            function(data) {
-            if (data.length > 0) {
-                var table_array = JSON.parse(data);
-                for (j in table_array) {
-                    var divcontent = table_array[j];
-                    switch (divcontent['type'])
-                    {
-                        case 'value':
-                            if (divcontent['data']!='')
-                                $('#' + divcontent['id']).html(divcontent['data']);
-                            break;
-                        case 'css':
-                            if (divcontent['data']!='') {
-                                $('#' + divcontent['id']).removeClass();
-                                $('#' + divcontent['id']).addClass(divcontent['data']);
-                            }
-                            break;
-                        case 'style':
-                            if (divcontent['data']!='') {
-                                $('#' + divcontent['id']).attr('style', divcontent['data']);
-                            }
-                            break;
-                        case 'style_color':
-                            if (divcontent['data']!='') {
-                                $('#' + divcontent['id']).css('color', divcontent['data']);
-                            }
-                            break;
-                    }
-                }
-            }//if
-            setTimeout( function() {
-                refresher(pairs,css);
-            }, ajax_delay);
-        },
-        error:
-            function(XMLHttpRequest, textStatus, errorThrown)
-            {
-            setTimeout( function() {
-                refresher(pairs,css);
-            }, 5000);
-            }
-        });
-    }
-    </script>
-    <style type="text/css">
-    <!--
-    .style1 {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        font-size: 24px;
-        color: #004c00;
-    }
-    .style3 {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        font-size: 22px;
-        color: #00FF00;
-    }
-    .float_lang_base_1 {float:left;}
-    .float_lang_base_2 {float:right;}
-    BODY {font-family: Arial, Verdana, Helvetica, sans-serif;color: #000;padding: 0;margin: 0;text-align: center;font-size: 11px;}
-    
-    -->
-    </style>
-    <link rel="shortcut icon" href="http://www.laatus.com.br/favicon.png" />
     <title>LAATUS - Investing</title>
     <body>
 
     <table border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td colspan="2">
-                <iframe id="cal" src="https://sslecal2.forexprostools.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&importance=2,3&features=datepicker,timezone&countries=32,5,72&calType=day&timeZone=12&lang=12" width="650" height="520" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"></iframe>
+                
+                <iframe src="https://sslecal2.forexprostools.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&category=_employment,_economicActivity,_inflation,_credit,_centralBanks,_confidenceIndex,_balance,_Bonds&importance=2,3&features=datepicker,timezone&countries=32,37,72,5&calType=day&timeZone=12&lang=1" width="650" height="467" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"></iframe>
+                
+
+
             </td>
         </tr>
-
         <tr>
             <td>
                 <iframe frameborder="0" scrolling="no" height="383" width="345" style="position: relative; top: -20px;" allowtransparency="true" marginwidth="0" marginheight="0" src="https://sslindrates.forexprostools.com/index.php?force_lang=12&pairs_ids=166;170;27;172;175;176;177;168;167;174;14601;956501;1043106;44399;959210;179;959206;178;53094;&header-text-color=%23FFFFFF&curr-name-color=%230059b0&inner-text-color=%23000000&green-text-color=%232A8215&green-background=%23B7F4C2&green-background=%23B7F4C2&red-text-color=%23DC0001&red-background=%23FFE2E2&inner-border-color=%23CBCBCB&border-color=%23cbcbcb&bg1=%23F6F6F6&bg2=%23ffffff&open=hide&high=hide&low=hide&change=hide&last_update=show"></iframe>
@@ -131,7 +21,13 @@
                 <iframe frameborder="0" scrolling="no" height="383" width="345" style="position: relative; top: -20px;"  allowtransparency="true" marginwidth="0" marginheight="0" src="https://sslfxrates.forexprostools.com/index.php?force_lang=12&pairs_ids=8827;2124;3;2126;4;7;41;2103;39;18;17;2186;2090;2112;2110;2177;&header-text-color=%23FFFFFF&curr-name-color=%230059b0&inner-text-color=%23000000&green-text-color=%232A8215&green-background=%23B7F4C2&green-background=%23B7F4C2&red-text-color=%23DC0001&red-background=%23FFE2E2&inner-border-color=%23CBCBCB&border-color=%23cbcbcb&bg1=%23F6F6F6&bg2=%23ffffff&open=hide&high=hide&low=hide&change=hide&bid=hide&ask=hide&last=show&last_update=show"></iframe>
             </td>
         </tr>
-
+        <tr>
+            <td colspan="2">
+                Ajuste: 
+                Ajuste Anterior:
+                Fechamento:
+            </td>
+        </tr>
 
       <tr>
         <td valign="top">
@@ -150,3 +46,5 @@
       </tr>
     </table>
     </body>
+
+</html>
