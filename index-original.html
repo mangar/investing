@@ -1,0 +1,218 @@
+
+
+<script>
+
+    function reloadIFrame(){
+            var g1 = document.getElementById("graf1");
+            g1.src = g1.src;
+            var g2 = document.getElementById("graf2");
+            g2.src = g2.src;
+            var g3 = document.getElementById("graf3");
+            g3.src = g3.src;
+            //var cal = document.getElementById("cal");
+            //cal.src = cal.src;
+    }
+    
+    setInterval("reloadIFrame()", 10000);
+    
+    </script>
+    <script type="text/javascript" src="https://w.24timezones.com/l.js" async></script>
+    <script type="text/javascript" language="javascript" src="https://i-invdn-com.akamaized.net/jquery.js"></script>
+    <script type="text/javascript" language="javascript">
+    //function that switches quotes bar tabs & content
+    function switch_quotes_bar_tab(num) {
+         $('#quotes_bar_layer'+num).siblings().css({'display':'none'});
+         $('#quotes_bar_layer'+num).css({'display':''});
+         $('#quotes_bar_tabs_left').css({backgroundImage : "url(https://wmt-invdn-com.akamaized.net/quotes_bar_tab_"+num+".gif)"});
+         $('#quotes_bar_tabs_right').css({backgroundImage : "url(https://wmt-invdn-com.akamaized.net/quotes_bar_tab_"+num+"-rtl.gif)"});
+    }
+    //preload quotes bar tabs images
+    var quotes_bar_tab = new Image();
+    quotes_bar_tab.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_1.gif';
+    var quotes_bar_tab_rtl = new Image();
+    quotes_bar_tab_rtl.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_1-rtl.gif';
+    var quotes_bar_tab2 = new Image();
+    quotes_bar_tab2.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_2.gif';
+    var quotes_bar_tab2_rtl = new Image();
+    quotes_bar_tab2_rtl.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_2-rtl.gif';
+    var quotes_bar_tab3 = new Image();
+    quotes_bar_tab3.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_3.gif';
+    var quotes_bar_tab3_rtl = new Image();
+    quotes_bar_tab3_rtl.src = 'https://wmt-invdn-com.akamaized.net/quotes_bar_tab_3-rtl.gif'; 
+    
+    function refresher(pairs,css) {
+        ajax_delay = 5000;
+        $.ajax({
+            url:'/quotes_bar/quotes_bar_ajax.php', 
+            type: "GET",
+            data: "pairs="+pairs+"&css="+css+"&force_lang=12",
+            dataType: ($.browser.msie) ? "text" : "text",
+            success:
+            function(data) {
+            if (data.length > 0) {
+                var table_array = JSON.parse(data);
+                for (j in table_array) {
+                    var divcontent = table_array[j];
+                    switch (divcontent['type'])
+                    {
+                        case 'value':
+                            if (divcontent['data']!='')
+                                $('#' + divcontent['id']).html(divcontent['data']);
+                            break;
+                        case 'css':
+                            if (divcontent['data']!='') {
+                                $('#' + divcontent['id']).removeClass();
+                                $('#' + divcontent['id']).addClass(divcontent['data']);
+                            }
+                            break;
+                        case 'style':
+                            if (divcontent['data']!='') {
+                                $('#' + divcontent['id']).attr('style', divcontent['data']);
+                            }
+                            break;
+                        case 'style_color':
+                            if (divcontent['data']!='') {
+                                $('#' + divcontent['id']).css('color', divcontent['data']);
+                            }
+                            break;
+                    }
+                }
+            }//if
+            setTimeout( function() {
+                refresher(pairs,css);
+            }, ajax_delay);
+        },
+        error:
+            function(XMLHttpRequest, textStatus, errorThrown)
+            {
+            setTimeout( function() {
+                refresher(pairs,css);
+            }, 5000);
+            }
+        });
+    }
+    </script>
+    <style type="text/css">
+    <!--
+    .style1 {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 24px;
+        color: #004c00;
+    }
+    .style3 {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 22px;
+        color: #00FF00;
+    }
+    .float_lang_base_1 {float:left;}
+    .float_lang_base_2 {float:right;}
+    BODY {font-family: Arial, Verdana, Helvetica, sans-serif;color: #000;padding: 0;margin: 0;text-align: center;font-size: 11px;}
+    
+    -->
+    </style>
+    <link rel="shortcut icon" href="http://www.laatus.com.br/favicon.png" />
+    <title>LAATUS - Investing</title>
+    <body>
+    <table width="800" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top"><table width="800" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td rowspan="2" valign="top"><iframe id="cal" src="https://sslecal2.forexprostools.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&importance=2,3&features=datepicker,timezone&countries=32,5,72&calType=day&timeZone=12&lang=12" width="650" height="520" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"></iframe></td>
+            <td valign="top">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                <td valign="top"><iframe frameborder="0" scrolling="no" height="383" width="345" style="position: relative; top: -20px;" allowtransparency="true" marginwidth="0" marginheight="0" src="https://sslindrates.forexprostools.com/index.php?force_lang=12&pairs_ids=166;170;27;172;175;176;177;168;167;174;14601;956501;1043106;44399;959210;179;959206;178;53094;&header-text-color=%23FFFFFF&curr-name-color=%230059b0&inner-text-color=%23000000&green-text-color=%232A8215&green-background=%23B7F4C2&green-background=%23B7F4C2&red-text-color=%23DC0001&red-background=%23FFE2E2&inner-border-color=%23CBCBCB&border-color=%23cbcbcb&bg1=%23F6F6F6&bg2=%23ffffff&open=hide&high=hide&low=hide&change=hide&last_update=show"></iframe></td>
+                </tr>        		
+                <tr>
+                    <td align="center">
+    
+                    <div class="cleanslate w24tz-current-time w24tz-large" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/pt_horamundial/brasilia_hora_local.php" style="text-decoration: none" class="clock24" id="tz24-1553028253-c145-eyJob3VydHlwZSI6IjI0Iiwic2hvd2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIxIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I1YzkxNTQ5ZDg5YTk1IiwidHlwZSI6ImRiIiwibGFuZyI6InB0In0=" title="fuso horÃ¡rio BrasÃ­lia" target="_blank" rel="nofollow"></a></p><div id="clock_block_cb5c91549d89a95"></div></div>
+    
+                    </td>
+                </tr>
+            </table>
+              <td valign="top">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td valign="top"><iframe frameborder="0" scrolling="no" height="383" width="345" style="position: relative; top: -20px;"  allowtransparency="true" marginwidth="0" marginheight="0" src="https://sslfxrates.forexprostools.com/index.php?force_lang=12&pairs_ids=8827;2124;3;2126;4;7;41;2103;39;18;17;2186;2090;2112;2110;2177;&header-text-color=%23FFFFFF&curr-name-color=%230059b0&inner-text-color=%23000000&green-text-color=%232A8215&green-background=%23B7F4C2&green-background=%23B7F4C2&red-text-color=%23DC0001&red-background=%23FFE2E2&inner-border-color=%23CBCBCB&border-color=%23cbcbcb&bg1=%23F6F6F6&bg2=%23ffffff&open=hide&high=hide&low=hide&change=hide&bid=hide&ask=hide&last=show&last_update=show"></iframe></td>
+                </tr>
+                <tr>
+                  <td valign="top"><div align="center"><span class="style1">SEGUE O PLANO!!!</span></div></td>
+                </tr>
+    
+                <tr>
+                <td valign="top"><div align="center"><img src="https://media.eadbox.com/system/uploads/saas/logo/5637e787d3bc906fa3000089/Laatus.png" alt="LAATUS" ></div></td>
+                </tr>
+    
+              </table>          </td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center" valign="top"><div class="inlineblock">
+              <div id="quotes_bar">
+                <table height="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="quotes_bar_layer1" style="direction:ltr;">
+                  <tr id="print_here">
+                    <td height="60"><div id="quotes_bar_upper_empty" style="height:6px; background-color:#FFFFFF;">&nbsp;</div>
+                        <div id="quotes_bar_upper_container" style="background-color:#FFFFFF;height:15px; width:140px; padding-bottom:1px;"> <span id="qb_pair_name_8839" class="float_lang_base_1" style="padding-left:10px; font-size:12px; font-weight:bold; color: #0059B0;"> <b>S&P 500 Fut</b> </span> <span id="qb_pair_time_8839" class="float_lang_base_2 pid-8839-time" style="padding-right:10px; font-size:11px; color:#777777;" > 00:00:00 </span> </div>
+                      <div id="quotes_bar_lower_container" style="background-color:#FFFFFF;height:15px; width:132px;padding-top:1px; text-align:center;">
+                          <table cellpadding="0" cellspacing="0" border="0" style="text-align:center;width:100%;border:0px;margin:0px;">
+                            <tr style="text-align:center;width:100%;border:0px;margin:0px;">
+                              <td id="qb_pair_last_8839" style="font-size:12px;color:#333333;font-weight:bold;text-align:right;padding-right:10px;" class="pid-8839-last"> 0.00 </td>
+                              <td id="qb_divider_8839" style="color:#333333; padding:0px 3px; font-weight:bold;">|</td>
+                              <td id="qb_pair_change_8839" style="font-size:12px;color:#333333;font-weight:bold;text-align:left;padding-left:10px;" class="pid-8839-pcp"> 0.00% </td>
+                            </tr>
+                          </table>
+                      </div>
+                      <div id="quotes_bar_lower_empty" style="height:6px; background-color:#FFFFFF;">&nbsp;</div></td>
+                      <td height="60"><div id="quotes_bar_upper_empty" style="height:6px; background-color:#FFFFFF;">&nbsp;</div>
+                        <div id="quotes_bar_upper_container" style="background-color:#FFFFFF;height:15px; width:150px;border-left:1px solid #999999; padding-bottom:1px;"> <span id="qb_pair_name_8849" class="float_lang_base_1" style="padding-left:10px; font-size:12px; font-weight:bold; color: #0059B0;"> <b>Crude Oil WTI</b> </span> <span id="qb_pair_time_8849" class="float_lang_base_2 pid-8849-time" style="padding-right:10px; font-size:11px; color:#777777;" > 00:00:00 </span> </div>
+                      <div id="quotes_bar_lower_container" style="background-color:#FFFFFF;height:15px; width:132px;border-left:1px solid #999999;padding-top:1px; text-align:center;">
+                          <table cellpadding="0" cellspacing="0" border="0" style="text-align:center;width:100%;border:0px;margin:0px;">
+                            <tr style="text-align:center;width:100%;border:0px;margin:0px;">
+                              <td id="qb_pair_last_8849" style="font-size:12px;color:#333333;font-weight:bold;text-align:right;padding-right:10px;" class="pid-8849-last"> 00.00 </td>
+                              <td id="qb_divider_8849" style="color:#333333; padding:0px 3px; font-weight:bold;">|</td>
+                              <td id="qb_pair_change_8849" style="font-size:12px;color:#333333;font-weight:bold;text-align:left;padding-left:10px;" class="pid-8849-pcp"> 0.00% </td>
+                            </tr>
+                         </table>
+                      </div>
+                      <div id="quotes_bar_lower_empty" style="height:6px; background-color:#FFFFFF;">&nbsp;</div></td>
+                    <td height="60"><div id="quotes_bar_upper_empty" style="height:6px; background-color:#FFFFFF;">&nbsp;</div>
+                        <div id="quotes_bar_upper_container" style="background-color:#FFFFFF;height:15px; width:160px;border-left:1px solid #999999; padding-bottom:1px;"> <span id="qb_pair_name_23705" class="float_lang_base_1" style="padding-left:10px; font-size:12px; font-weight:bold; color: #0059B0;"> <b>U.S 10 Treasury</b> </span> <span id="qb_pair_time_23705" class="float_lang_base_2 pid-23705-time" style="padding-right:10px; font-size:11px; color:#777777;" > 00:00:00 </span> </div>
+                      <div id="quotes_bar_lower_container" style="background-color:#FFFFFF;height:15px; width:132px;border-left:1px solid #999999;padding-top:1px; text-align:center;">
+                          <table cellpadding="0" cellspacing="0" border="0" style="text-align:center;width:100%;border:0px;margin:0px;">
+                            <tr style="text-align:center;width:100%;border:0px;margin:0px;">
+                              <td id="qb_pair_last_23705" style="font-size:12px;color:#333333;font-weight:bold;text-align:right;padding-right:10px;" class="pid-23705-last"> 00.00 </td>
+                              <td id="qb_divider_23705" style="color:#333333; padding:0px 3px; font-weight:bold;">|</td>
+                              <td id="qb_pair_change_23705" style="font-size:12px;color:#333333;font-weight:bold;text-align:left;padding-left:10px;" class="pid-23705-pcp"> 0.00% </td>
+                            </tr>
+                          </table>
+                      </div>
+                      <div id="quotes_bar_lower_empty" style="height:6px; background-color:#FFFFFF;">&nbsp;</div></td>
+                    <td height="60"><div id="quotes_bar_upper_empty" style="height:6px; background-color:#FFFFFF;">&nbsp;</div>
+                        <div id="quotes_bar_upper_container" style="background-color:#FFFFFF;height:15px; width:132px;border-left:1px solid #999999; padding-bottom:1px;"> <span id="qb_pair_name_8830" class="float_lang_base_1" style="padding-left:10px; font-size:12px; font-weight:bold; color: #0059B0;"> <b>Gold</b> </span> <span id="qb_pair_time_8830" class="float_lang_base_2 pid-8830-time" style="padding-right:10px; font-size:11px; color:#777777;" > 00:00:00 </span> </div>
+                      <div id="quotes_bar_lower_container" style="background-color:#FFFFFF;height:15px; width:132px;border-left:1px solid #999999;padding-top:1px; text-align:center;">
+                          <table cellpadding="0" cellspacing="0" border="0" style="text-align:center;width:100%;border:0px;margin:0px;">
+                            <tr style="text-align:center;width:100%;border:0px;margin:0px;">
+                              <td id="qb_pair_last_8830" style="font-size:12px;color:#333333;font-weight:bold;text-align:right;padding-right:10px;" class="pid-8830-last"> 0.00 </td>
+                              <td id="qb_divider_8830" style="color:#333333; padding:0px 3px; font-weight:bold;">|</td>
+                              <td id="qb_pair_change_8830" style="font-size:12px;color:#333333;font-weight:bold;text-align:left;padding-left:10px;" class="pid-8830-pcp"> 0.00% </td>
+                            </tr>
+                          </table>
+                      </div>
+                      <div id="quotes_bar_lower_empty" style="height:6px; background-color:#FFFFFF;">&nbsp;</div></td>
+                  </tr>
+                </table>
+                <!--LAYER 1 -->
+              </div>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
+              <script type="text/javascript"> stream="https://stream119.forexpros.com:443";</script>
+              <script>window.timezoneOffset = -7200;</script>
+              <script src="https://streamjs.investing.com/tools/fxindex1.js" ></script>
+              <script>var pid_arr = Array("pid-8839:","pid-8827:","pid-8849:","pid-23705:","pid-8830:","pid-8836:","pid-8831:","pid-8862:","pid-166:","pid-172:","pid-27:");var TimeZoneID = 12;</script>
+            </div></td>
+            </tr>
+        </table></td>
+      </tr>
+    </table>
+    </body>
